@@ -29,15 +29,27 @@ namespace GarageVehicleSave
 
                     if(Game.IsKeyDown(System.Windows.Forms.Keys.Delete))
                     {
-                        spawnMechanic(player);
+                        GameFiber.StartNew(delegate
+                        {
+                            GameFiber.Yield();
+                            spawnMechanic(player);
+                        });
                     }
                     if (Game.IsKeyDown(System.Windows.Forms.Keys.Insert))
                     {
-                        spawnTowUnit(player);
+                        GameFiber.StartNew(delegate
+                        {
+                            GameFiber.Yield();
+                            spawnTowUnit(player);
+                        });
                     }
                     if (Game.IsKeyDown(System.Windows.Forms.Keys.NumPad5))
                     {
-                        testing(player);
+                        GameFiber.StartNew(delegate
+                        {
+                            GameFiber.Yield();
+                            testing(player);
+                        });
                     }
                 }
             });
@@ -50,6 +62,7 @@ namespace GarageVehicleSave
 
             int locationIndex = Workshop.getNearestWorkshopIndex(playerVehicle.Position);
             Vector3 spawnLocation = Workshop.spawnLocations[locationIndex];
+            spawnLocation = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(100f));
             float spawnHeading = Workshop.spawnHeadings[locationIndex];
 
             Vehicle mechVehicle = new Vehicle("mesa3", spawnLocation, spawnHeading);
@@ -103,6 +116,8 @@ namespace GarageVehicleSave
             driver.IsPersistent = false;
             mechVehicle.IsPersistent = false;
 
+            return;
+
         }
 
         public static void spawnTowUnit(Player player)
@@ -112,6 +127,7 @@ namespace GarageVehicleSave
 
             int locationIndex = Workshop.getNearestWorkshopIndex(playerVehicle.Position);
             Vector3 spawnLocation = Workshop.spawnLocations[locationIndex];
+            spawnLocation = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(100f));
             float spawnHeading = Workshop.spawnHeadings[locationIndex];
 
             Vehicle mechVehicle = new Vehicle("mesa3", spawnLocation, spawnHeading);
@@ -166,6 +182,8 @@ namespace GarageVehicleSave
 
             driverTow.IsPersistent = false;
 
+            return;
+
         }
         public static void testing(Player player)
         {
@@ -202,6 +220,8 @@ namespace GarageVehicleSave
             */
             int index = Workshop.getNearestWorkshopIndex(playerVehicle.Position);
             Blip blip = new Blip(Workshop.spawnLocations[index]);
+
+            return;
 
         }
     }
