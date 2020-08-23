@@ -18,6 +18,8 @@ namespace GarageVehicleSave
 
                 Player player = Game.LocalPlayer;
 
+
+
                 while(true)
                 {
                     GameFiber.Yield();
