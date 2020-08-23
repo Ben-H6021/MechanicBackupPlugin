@@ -10,7 +10,7 @@ namespace MechanicBackup
     class Workshop
     {
 
-        static Vector3[] spawnLocations =
+        public static Vector3[] spawnLocations =
         {
             new Vector3(1997.856f, 3774.236f, 31.76904f),
             new Vector3(2525.661f, 4209.972f, 39.54697f),
@@ -38,7 +38,7 @@ namespace MechanicBackup
             new Vector3(526.6412f, -171.3772f, 54.67404f)
         };
 
-        static float[] spawnHeadings =
+        public static float[] spawnHeadings =
         {
             121.7595f,
             328.124f,
@@ -66,7 +66,7 @@ namespace MechanicBackup
             35.14077f
         };
 
-        public static int getNearestWorkshop(Vector3 playerPos)
+        public static int getNearestWorkshopIndex(Vector3 playerPos)
         {
             float lastDistance = 1000000000000;
             int bestSpawnIndex = -1;
