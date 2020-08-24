@@ -54,11 +54,10 @@ namespace MechanicBackup.SupportUnits
             mechVehicle.IsSirenOn = true;
             mechVehicle.IsSirenSilent = true;
             Game.DisplayNotification("You can leave the vehicle now!");
-            while (player.Character.CurrentVehicle == mechVehicle)
+            while (player.Character.CurrentVehicle == mechVehicle || mechVehicle.DistanceTo(player.Character.Position) < 5)
             {
                 GameFiber.Yield();
             }
-            GameFiber.Sleep(1000);
 
             mechVehicle.IsSirenOn = false;
             GameFiber.Sleep(1000);
