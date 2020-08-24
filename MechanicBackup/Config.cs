@@ -1,4 +1,5 @@
 ﻿using Rage;
+using System.Windows.Forms;
 
 namespace MechanicBackup
 {
@@ -7,16 +8,17 @@ namespace MechanicBackup
         public static readonly InitializationFile INIFile = new InitializationFile(@"Plugins\MechanicBackup.ini");
 
         public static readonly bool Debug = INIFile.ReadBoolean("General", "Debug", false);
-        public static readonly bool Repair = INIFile.ReadBoolean("General", "Repair", true);
+        public static readonly Keys MenuKey = INIFile.ReadEnum<Keys>("General", "MenuKey", Keys.Insert);
 
-        public static readonly bool SpawnVehicleLeftOnLoad = INIFile.ReadBoolean("Spawning", "SpawnVehicleLeftOnLoad", false);
-        public static readonly bool SpawnVehicleRightOnLoad = INIFile.ReadBoolean("Spawning", "SpawnVehicleRightOnLoad", false);
+        public static readonly string SpawnVehicleNameMechanic = INIFile.ReadString("MechanicUnit", "VehicleModel", "mesa3");
 
-        public static readonly string SpawnVehicleNameLeft = INIFile.ReadString("Spawning", "SpawnVehicleNameLeft", "");
-        public static readonly string SpawnVehicleNameRight = INIFile.ReadString("Spawning", "SpawnVehicleNameRight", "");
+        public static readonly string SpawnVehicleNameTowingDriver = INIFile.ReadString("TowingUnit", "DriverVehicleModel", "mesa3");
+        public static readonly string SpawnVehicleNameTow = INIFile.ReadString("TowingUnit", "TowTruckModel", "towtruck2");
 
-        public static readonly bool SpawnVehicleParkingLotOnLoad = INIFile.ReadBoolean("Spawning", "SpawnVehicleParkingLotOnLoad", false);
-        public static readonly string SpawnVehicleNameParkingLot = INIFile.ReadString("Spawning", "SpawnVehicleNameParkingLot", "");
+        public static readonly string SpawnVehicleNamePickup = INIFile.ReadString("PickupUnit", "VehicleModel", "police");
+
+        public static readonly string SpawnVehicleNameDutyDriver = INIFile.ReadString("DutyVehicleUnit", "DriverVehicleModel", "police");
+        public static readonly string SpawnVehicleNameDuty = INIFile.ReadString("DutyVehicleUnit", "DutyVehicleModel", "police2");
 
     }
 }

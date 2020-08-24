@@ -15,7 +15,7 @@ namespace MechanicBackup.SupportUnits
             spawnLocation = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(100f));
             float spawnHeading = Workshop.spawnHeadings[locationIndex];
 
-            Vehicle mechVehicle = new Vehicle("mesa3", spawnLocation, spawnHeading);
+            Vehicle mechVehicle = new Vehicle(Config.SpawnVehicleNameMechanic, spawnLocation, spawnHeading);
             Ped driver = new Ped("s_m_y_xmech_01", mechVehicle.GetOffsetPositionRight(-mechVehicle.Width - 1f), spawnHeading);
             Blip vehicleBlip = new Blip(mechVehicle);
 

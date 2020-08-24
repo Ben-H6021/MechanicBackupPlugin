@@ -22,6 +22,10 @@ namespace MechanicBackup
                 while(true)
                 {
                     GameFiber.Yield();
+                    if (Game.IsKeyDown(Config.MenuKey))
+                    {
+                        Menu.mainMenu.Visible = !Menu.mainMenu.Visible;
+                    }
                     if (Game.IsKeyDown(System.Windows.Forms.Keys.NumPad5) && Config.Debug)
                     {
                         GameFiber.StartNew(delegate
@@ -29,10 +33,6 @@ namespace MechanicBackup
                             GameFiber.Yield();
                             testing(player);
                         });
-                    }
-                    if (Game.IsKeyDown(System.Windows.Forms.Keys.Insert))
-                    {
-                        Menu.mainMenu.Visible = !Menu.mainMenu.Visible;
                     }
 
                     Menu._menuPool.ProcessMenus();

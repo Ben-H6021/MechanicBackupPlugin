@@ -40,19 +40,35 @@ namespace MechanicBackup
             {
                 if(selectedItem == spawnMechanicUnit)
                 {
-                    SupportUnits.MechanicUnit.spawn(Game.LocalPlayer);
+                    GameFiber.StartNew(delegate
+                    {
+                        GameFiber.Yield();
+                        SupportUnits.MechanicUnit.spawn(Game.LocalPlayer);
+                    });
                 }
                 if (selectedItem == spawnTowingUnit)
                 {
-                    SupportUnits.TowingUnit.spawn(Game.LocalPlayer);
+                    GameFiber.StartNew(delegate
+                    {
+                        GameFiber.Yield();
+                        SupportUnits.TowingUnit.spawn(Game.LocalPlayer);
+                    });
                 }
                 if (selectedItem == spawnPickupUnit)
                 {
-                    //SupportUnits.PickupUnit.spawn(Game.LocalPlayer);
+                    GameFiber.StartNew(delegate
+                    {
+                        GameFiber.Yield();
+                        SupportUnits.PickupUnit.spawn(Game.LocalPlayer);
+                    });
                 }
                 if (selectedItem == spawnDutyVehicleUnit)
                 {
-                    //SupportUnits.DutyVehicleUnit.spawn(Game.LocalPlayer);
+                    GameFiber.StartNew(delegate
+                    {
+                        GameFiber.Yield();
+                        SupportUnits.DutyVehicleUnit.spawn(Game.LocalPlayer);
+                    });
                 }
             }
         }
