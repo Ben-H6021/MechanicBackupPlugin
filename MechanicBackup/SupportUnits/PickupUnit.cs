@@ -41,7 +41,7 @@ namespace MechanicBackup.SupportUnits
             {
                 mechVehicle.SetPositionWithSnap(player.Character.GetOffsetPositionFront(-2f));
             }
-            Game.LocalPlayer.Character.Tasks.EnterVehicle(mechVehicle, -1).WaitForCompletion(30000);
+            player.Character.Tasks.EnterVehicle(mechVehicle, 0).WaitForCompletion(30000);
             //Game.LocalPlayer.Character.Tasks.EnterVehicle(mechVehicle, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
             //player.Character.WarpIntoVehicle(mechVehicle, 0);
             while (player.Character.CurrentVehicle != mechVehicle)
