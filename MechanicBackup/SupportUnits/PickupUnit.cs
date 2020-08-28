@@ -35,14 +35,26 @@ namespace MechanicBackup.SupportUnits
             Game.DisplayNotification("Dispatching pickup unit");
 
             driver.Tasks.EnterVehicle(mechVehicle, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
-            var task1 = driver.Tasks.DriveToPosition(player.Character.Position, 15f, VehicleDrivingFlags.Emergency);
+            var task1 = driver.Tasks.DriveToPosition(World.GetNextPositionOnStreet(player.Character.Position), 15f, VehicleDrivingFlags.Emergency);
+            //var task1 = driver.Tasks.DriveToPosition(player.Character.Position, 15f, VehicleDrivingFlags.Emergency);
             task1.WaitForCompletion(60000);
             if (task1.IsActive)
             {
                 mechVehicle.SetPositionWithSnap(player.Character.GetOffsetPositionFront(-2f));
             }
+
+            if (player.Character.Position.DistanceTo(mechVehicle.Position) > 10f)
+            {
+                Game.DisplayNotification("Please get closer to the pickup vehicle");
+                while(player.Character.Position.DistanceTo(mechVehicle.Position) > 10f)
+                {
+                    GameFiber.Yield();
+                }
+            }
+
+            Game.DisplayNotification("Entering vehicle");
             player.Character.Tasks.EnterVehicle(mechVehicle, 0).WaitForCompletion(30000);
-            //Game.LocalPlayer.Character.Tasks.EnterVehicle(mechVehicle, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
+            //Game.LocalPlayer.Character.Tasks.EnterVehicle(mechVehicle, 10000, 0, EnterVehicleFlags.None).WaitForCompletion(30000);
             //player.Character.WarpIntoVehicle(mechVehicle, 0);
             while (player.Character.CurrentVehicle != mechVehicle)
             {
