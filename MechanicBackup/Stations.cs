@@ -11,7 +11,8 @@ namespace MechanicBackup
             new Vector3(-577.7094f, -145.3423f, 37.34693f),
             new Vector3(-1055.879f, -859.0846f, 4.815023f),
             new Vector3(483.0124f, -1021.343f, 27.85753f),
-            new Vector3(397.8063f, -1613.463f, 29.22214f),
+            //new Vector3(397.8063f, -1613.463f, 29.22214f), replacement: 
+            new Vector3(405.238f, -1607.4f, 29.18381f),
             new Vector3(1870.137f, 3691.292f, 33.57906f),
             new Vector3(-454.858f, 6026.713f, 31.27069f),
             new Vector3(373.6319f, 795.257f, 187.3156f),
@@ -29,7 +30,8 @@ namespace MechanicBackup
             202.2667f,
             138.2651f,
             276.9456f,
-            319.4296f,
+            //319.4296f, replacement:
+            229.0123f,
             208.8443f,
             312.7682f,
             180.6773f,
