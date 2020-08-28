@@ -16,7 +16,7 @@ namespace MechanicBackup.SupportUnits
             float spawnHeading = Workshop.spawnHeadings[locationIndex];
 
             Vehicle mechVehicle = new Vehicle(Config.SpawnVehicleNameMechanic, spawnLocation, spawnHeading);
-            Ped driver = new Ped("s_m_y_xmech_01", mechVehicle.GetOffsetPositionRight(-mechVehicle.Width - 1f), spawnHeading);
+            Ped driver = new Ped("s_m_y_xmech_01", mechVehicle.GetOffsetPositionRight(-mechVehicle.Width /*- 1f*/), spawnHeading);
             Blip vehicleBlip = new Blip(mechVehicle);
 
             driver.BlockPermanentEvents = true;

@@ -20,7 +20,7 @@ namespace MechanicBackup.SupportUnits
             float spawnHeading = Stations.spawnHeadings[locationIndex];
 
             Vehicle mechVehicle = new Vehicle(Config.SpawnVehicleNamePickup, spawnLocation, spawnHeading);
-            Ped driver = new Ped("s_f_y_cop_01", mechVehicle.GetOffsetPositionRight(-mechVehicle.Width - 1f), spawnHeading);
+            Ped driver = new Ped("s_f_y_cop_01", mechVehicle.GetOffsetPositionRight(-mechVehicle.Width /*- 1f*/), spawnHeading);
             Blip vehicleBlip = new Blip(mechVehicle);
 
             driver.BlockPermanentEvents = true;

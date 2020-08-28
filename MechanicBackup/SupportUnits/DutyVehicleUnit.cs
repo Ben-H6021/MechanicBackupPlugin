@@ -14,11 +14,11 @@ namespace MechanicBackup.SupportUnits
             float spawnHeading = Stations.spawnHeadings[locationIndex];
 
             Vehicle vehicleDriver = new Vehicle(Config.SpawnVehicleNameDutyDriver, spawnLocation, spawnHeading);
-            Ped pedDriver = new Ped("s_m_y_cop_01", vehicleDriver.GetOffsetPositionRight(-vehicleDriver.Width - 1f), spawnHeading);
+            Ped pedDriver = new Ped("s_m_y_cop_01", vehicleDriver.GetOffsetPositionRight(-vehicleDriver.Width /*- 1f*/), spawnHeading);
             Blip blipVehicleDriver = new Blip(vehicleDriver);
 
             Vehicle vehicleDuty = new Vehicle(Config.SpawnVehicleNameDuty, vehicleDriver.GetOffsetPositionFront(-vehicleDriver.Length - 1f), spawnHeading);
-            Ped pedDutyDriver = new Ped("s_f_y_cop_01", vehicleDuty.GetOffsetPositionRight(-vehicleDriver.Width - 1f), spawnHeading);
+            Ped pedDutyDriver = new Ped("s_f_y_cop_01", vehicleDuty.GetOffsetPositionRight(-vehicleDriver.Width /*- 1f*/), spawnHeading);
             Blip blipDuty = new Blip(vehicleDuty);
 
             pedDriver.BlockPermanentEvents = true;
