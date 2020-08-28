@@ -14,7 +14,7 @@ namespace MechanicBackup.SupportUnits
                 return;
             }
 
-            int locationIndex = Workshop.getNearestWorkshopIndex(player.Character.Position);
+            int locationIndex = Stations.getNearestStationIndex(player.Character.Position);
             Vector3 spawnLocation = Workshop.spawnLocations[locationIndex];
             spawnLocation = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(100f));
             float spawnHeading = Workshop.spawnHeadings[locationIndex];
