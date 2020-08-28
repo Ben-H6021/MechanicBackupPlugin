@@ -57,6 +57,7 @@
     <Compile Include="SupportUnits\DutyVehicleUnit.cs" />
     <Compile Include="SupportUnits\MechanicUnit.cs" />
     <Compile Include="SupportUnits\PickupUnit.cs" />
+    <Compile Include="SupportUnits\Stations.cs" />
     <Compile Include="SupportUnits\TowingUnit.cs" />
     <Compile Include="Workshop.cs" />
   </ItemGroup>

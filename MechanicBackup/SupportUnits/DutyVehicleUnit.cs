@@ -9,9 +9,9 @@ namespace MechanicBackup.SupportUnits
         {
 
             int locationIndex = Stations.getNearestStationIndex(player.Character.Position);
-            Vector3 spawnLocation = Workshop.spawnLocations[locationIndex];
-            spawnLocation = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(100f));
-            float spawnHeading = Workshop.spawnHeadings[locationIndex];
+            Vector3 spawnLocation = Stations.spawnLocations[locationIndex];
+            //spawnLocation = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(100f));
+            float spawnHeading = Stations.spawnHeadings[locationIndex];
 
             Vehicle vehicleDriver = new Vehicle(Config.SpawnVehicleNameDutyDriver, spawnLocation, spawnHeading);
             Ped pedDriver = new Ped("s_m_y_cop_01", vehicleDriver.GetOffsetPositionRight(-vehicleDriver.Width - 1f), spawnHeading);
