@@ -40,6 +40,8 @@ namespace MechanicBackup.SupportUnits
             playerVehicle.IsEngineOn = false;
             playerVehicle.FuelTankHealth = 0f;
 
+            driver.PlayAmbientSpeech("generic_hi");
+
             driver.Tasks.GoStraightToPosition(playerVehicle.FrontPosition, 15f, playerVehicle.Heading + 180f, -1, 30000).WaitForCompletion(-1);
 
             driver.Inventory.GiveNewWeapon("weapon_wrench", -1, true);
@@ -63,6 +65,8 @@ namespace MechanicBackup.SupportUnits
                 }
             }
             //driver.Inventory.EquippedWeapon = null;
+
+            player.Character.PlayAmbientSpeech("generic_thanks");
 
             driver.Tasks.EnterVehicle(mechVehicle, -1, EnterVehicleFlags.None).WaitForCompletion(60000);
             vehicleBlip.Delete();
