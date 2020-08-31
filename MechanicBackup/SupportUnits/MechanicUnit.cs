@@ -12,7 +12,7 @@ namespace MechanicBackup.SupportUnits
 
             int locationIndex = Workshop.getNearestWorkshopIndex(playerVehicle.Position);
             Vector3 spawnLocation = Workshop.spawnLocations[locationIndex];
-            spawnLocation = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(100f));
+            //spawnLocation = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(100f));
             float spawnHeading = Workshop.spawnHeadings[locationIndex];
 
             Vehicle mechVehicle = new Vehicle(Config.SpawnVehicleNameMechanic, spawnLocation, spawnHeading);
