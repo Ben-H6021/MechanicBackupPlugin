@@ -8,66 +8,88 @@ namespace MechanicBackup.SupportUnits
         public static void spawn(Player player)
         {
 
-            Vehicle playerVehicle = player.Character.CurrentVehicle != null ? player.Character.CurrentVehicle : player.Character.LastVehicle;
+            bool persist = true;
 
-            int locationIndex = Workshop.getNearestWorkshopIndex(playerVehicle.Position);
+            int locationIndex = Workshop.getNearestWorkshopIndex(player.Character.Position);
             Vector3 spawnLocation = Workshop.spawnLocations[locationIndex];
             //spawnLocation = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(100f));
             float spawnHeading = Workshop.spawnHeadings[locationIndex];
 
-            Vehicle mechVehicle = new Vehicle(Config.SpawnVehicleNameTowingDriver, spawnLocation, spawnHeading);
-            Ped driverMech = new Ped("s_m_y_xmech_01", mechVehicle.GetOffsetPositionRight(-mechVehicle.Width /*- 1f*/), spawnHeading);
-            Blip vehicleBlipMech = new Blip(mechVehicle);
+            Vehicle vehicleDriver = new Vehicle(Config.SpawnVehicleNameTowingDriver, spawnLocation, spawnHeading);
+            Ped pedDriver = new Ped("s_m_y_xmech_01", vehicleDriver.GetOffsetPositionRight(-vehicleDriver.Width /*- 1f*/), spawnHeading);
+            Blip blipVehicleDriver = new Blip(vehicleDriver);
 
-            Vehicle towVehicle = new Vehicle(Config.SpawnVehicleNameTow, mechVehicle.GetOffsetPositionFront(-mechVehicle.Length - 1f), spawnHeading);
-            Ped driverTow = new Ped("s_m_y_xmech_01", towVehicle.GetOffsetPositionRight(-mechVehicle.Width /*- 1f*/), spawnHeading);
-            Blip vehicleBlipTow = new Blip(towVehicle);
+            Vehicle vehicleDuty = new Vehicle(Config.SpawnVehicleNameTow, vehicleDriver.GetOffsetPositionFront(-vehicleDriver.Length - 1f), spawnHeading);
+            Ped pedDutyDriver = new Ped("s_m_y_xmech_01", vehicleDuty.GetOffsetPositionRight(-vehicleDriver.Width /*- 1f*/), spawnHeading);
+            Blip blipDuty = new Blip(vehicleDuty);
 
-            driverMech.BlockPermanentEvents = true;
-            driverMech.IsPersistent = true;
-            driverMech.IsInvincible = true;
-            mechVehicle.IsPersistent = true;
-            vehicleBlipMech.Color = Color.Gray;
-            vehicleBlipMech.IsFriendly = true;
+            pedDriver.BlockPermanentEvents = true;
+            pedDriver.MakePersistent();
+            pedDriver.IsInvincible = true;
+            vehicleDriver.MakePersistent();
+            vehicleDriver.IsSirenOn = true;
+            vehicleDriver.IsSirenSilent = false;
+            blipVehicleDriver.Color = Color.Gray;
+            blipVehicleDriver.IsFriendly = true;
 
-            driverTow.BlockPermanentEvents = true;
-            driverTow.IsPersistent = true;
-            driverTow.IsInvincible = true;
-            towVehicle.IsPersistent = true;
-            vehicleBlipTow.Color = Color.Gray;
-            vehicleBlipTow.IsFriendly = true;
+            pedDutyDriver.BlockPermanentEvents = true;
+            pedDutyDriver.MakePersistent();
+            pedDutyDriver.IsInvincible = true;
+            vehicleDuty.MakePersistent();
+            vehicleDuty.IsSirenOn = true;
+            vehicleDuty.IsSirenSilent = false;
+            blipDuty.Color = Color.Gray;
+            blipDuty.IsFriendly = true;
 
-            Game.DisplayNotification("Dispatching tow unit");
+            /*GameFiber.StartNew(delegate
+            {
+            GameFiber.Yield();
+                while (persist)
+                {
+                    GameFiber.Yield();
+                    pedDriver.MakePersistent();
+                    vehicleDriver.MakePersistent();
+                    pedDutyDriver.MakePersistent();
+                    vehicleDuty.MakePersistent();
+                }
+            });*/
 
-            //driverMech.Tasks.EnterVehicle(mechVehicle, 10000, -1, EnterVehicleFlags.None);
-            //driverTow.Tasks.EnterVehicle(towVehicle, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
+            Game.DisplayNotification("Dispatching towing unit");
 
-            driverMech.WarpIntoVehicle(mechVehicle, -1);
-            driverTow.WarpIntoVehicle(towVehicle, -1);
+            //pedDutyDriver.Tasks.EnterVehicle(vehicleDuty, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
+            //pedDriver.Tasks.EnterVehicle(vehicleDriver, 10000, -1, EnterVehicleFlags.None);
 
-            var task2 = driverMech.Tasks.DriveToPosition(playerVehicle.Position, 15f, VehicleDrivingFlags.Emergency);
-            var task1 = driverTow.Tasks.DriveToPosition(playerVehicle.Position, 15f, VehicleDrivingFlags.Emergency);
+            pedDutyDriver.WarpIntoVehicle(vehicleDuty, -1);
+            pedDriver.WarpIntoVehicle(vehicleDriver, -1);
+
+            var task1 = pedDutyDriver.Tasks.DriveToPosition(player.Character.Position, 15f, VehicleDrivingFlags.Emergency);
+            var task2 = pedDriver.Tasks.DriveToPosition(player.Character.Position, 15f, VehicleDrivingFlags.Emergency);
 
             while ((task1 != null && task1.IsActive) || (task2 != null && task2.IsActive))
             {
                 GameFiber.Yield();
             }
 
-            towVehicle.IsEngineOn = false;
-            driverTow.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion(10000);
-            driverTow.Tasks.EnterVehicle(mechVehicle, 10000, 0, 2, EnterVehicleFlags.None).WaitForCompletion(60000);
-            vehicleBlipTow.Delete();
-            vehicleBlipMech.Delete();
+            vehicleDuty.IsEngineOn = false;
+            vehicleDuty.IsSirenOn = false;
+            pedDutyDriver.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion(10000);
+            pedDutyDriver.Tasks.EnterVehicle(vehicleDriver, 10000, 0, 2, EnterVehicleFlags.None).WaitForCompletion(60000);
+            blipDuty.Delete();
+            blipVehicleDriver.Delete();
+            vehicleDriver.IsSirenOn = false;
 
-            driverMech.Tasks.DriveToPosition(spawnLocation, 15f, VehicleDrivingFlags.Normal).WaitForCompletion(240000);
-            driverTow.Tasks.CruiseWithVehicle(mechVehicle, 15f, VehicleDrivingFlags.FollowTraffic);
+            pedDriver.Tasks.DriveToPosition(spawnLocation, 15f, VehicleDrivingFlags.Normal).WaitForCompletion(240000);
+            pedDutyDriver.Tasks.CruiseWithVehicle(vehicleDriver, 15f, VehicleDrivingFlags.FollowTraffic);
 
-            driverTow.Tasks.Clear();
+            pedDutyDriver.Tasks.Clear();
 
-            driverMech.IsPersistent = false;
-            mechVehicle.IsPersistent = false;
+            persist = false;
 
-            driverTow.IsPersistent = false;
+            pedDriver.IsPersistent = false;
+            vehicleDriver.IsPersistent = false;
+
+            pedDutyDriver.IsPersistent = false;
+
 
             return;
 
