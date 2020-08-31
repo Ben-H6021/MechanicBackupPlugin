@@ -42,11 +42,11 @@ namespace MechanicBackup.SupportUnits
             //driverMech.Tasks.EnterVehicle(mechVehicle, 10000, -1, EnterVehicleFlags.None);
             //driverTow.Tasks.EnterVehicle(towVehicle, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
 
-            driverTow.WarpIntoVehicle(towVehicle, -1);
             driverMech.WarpIntoVehicle(mechVehicle, -1);
+            driverTow.WarpIntoVehicle(towVehicle, -1);
 
-            var task1 = driverTow.Tasks.DriveToPosition(playerVehicle.Position, 15f, VehicleDrivingFlags.Emergency);
             var task2 = driverMech.Tasks.DriveToPosition(playerVehicle.Position, 15f, VehicleDrivingFlags.Emergency);
+            var task1 = driverTow.Tasks.DriveToPosition(playerVehicle.Position, 15f, VehicleDrivingFlags.Emergency);
 
             while ((task1 != null && task1.IsActive) || (task2 != null && task2.IsActive))
             {

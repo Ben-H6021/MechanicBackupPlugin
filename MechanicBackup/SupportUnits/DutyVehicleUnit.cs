@@ -41,7 +41,7 @@ namespace MechanicBackup.SupportUnits
             blipDuty.Color = Color.Gray;
             blipDuty.IsFriendly = true;
 
-            GameFiber.StartNew(delegate
+            /*GameFiber.StartNew(delegate
             {
             GameFiber.Yield();
                 while (persist)
@@ -52,7 +52,7 @@ namespace MechanicBackup.SupportUnits
                     pedDutyDriver.MakePersistent();
                     vehicleDuty.MakePersistent();
                 }
-            });
+            });*/
 
             Game.DisplayNotification("Dispatching duty vehicle unit");
 
