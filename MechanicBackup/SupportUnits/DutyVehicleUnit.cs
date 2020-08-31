@@ -8,6 +8,8 @@ namespace MechanicBackup.SupportUnits
         public static void spawn(Player player)
         {
 
+            bool persist = true;
+
             int locationIndex = Stations.getNearestStationIndex(player.Character.Position);
             Vector3 spawnLocation = Stations.spawnLocations[locationIndex];
             //spawnLocation = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(100f));
@@ -22,28 +24,43 @@ namespace MechanicBackup.SupportUnits
             Blip blipDuty = new Blip(vehicleDuty);
 
             pedDriver.BlockPermanentEvents = true;
-            pedDriver.IsPersistent = true;
+            pedDriver.MakePersistent();
             pedDriver.IsInvincible = true;
-            vehicleDriver.IsPersistent = true;
+            vehicleDriver.MakePersistent();
             vehicleDriver.IsSirenOn = true;
             vehicleDriver.IsSirenSilent = false;
             blipVehicleDriver.Color = Color.Gray;
             blipVehicleDriver.IsFriendly = true;
 
             pedDutyDriver.BlockPermanentEvents = true;
-            pedDutyDriver.IsPersistent = true;
+            pedDutyDriver.MakePersistent();
             pedDutyDriver.IsInvincible = true;
-            vehicleDuty.IsPersistent = true;
+            vehicleDuty.MakePersistent();
             vehicleDuty.IsSirenOn = true;
             vehicleDuty.IsSirenSilent = false;
             blipDuty.Color = Color.Gray;
             blipDuty.IsFriendly = true;
 
+            GameFiber.StartNew(delegate
+            {
+            GameFiber.Yield();
+                while (persist)
+                {
+                    GameFiber.Yield();
+                    pedDriver.MakePersistent();
+                    vehicleDriver.MakePersistent();
+                    pedDutyDriver.MakePersistent();
+                    vehicleDuty.MakePersistent();
+                }
+            });
+
             Game.DisplayNotification("Dispatching duty vehicle unit");
 
-            pedDriver.Tasks.EnterVehicle(vehicleDriver, 10000, -1, EnterVehicleFlags.None);
-            pedDutyDriver.Tasks.EnterVehicle(vehicleDuty, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
+            //pedDutyDriver.Tasks.EnterVehicle(vehicleDuty, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
+            //pedDriver.Tasks.EnterVehicle(vehicleDriver, 10000, -1, EnterVehicleFlags.None);
 
+            pedDutyDriver.WarpIntoVehicle(vehicleDuty, -1);
+            pedDriver.WarpIntoVehicle(vehicleDriver, -1);
 
             var task1 = pedDutyDriver.Tasks.DriveToPosition(player.Character.Position, 15f, VehicleDrivingFlags.Emergency);
             var task2 = pedDriver.Tasks.DriveToPosition(player.Character.Position, 15f, VehicleDrivingFlags.Emergency);
@@ -65,6 +82,8 @@ namespace MechanicBackup.SupportUnits
             pedDutyDriver.Tasks.CruiseWithVehicle(vehicleDriver, 15f, VehicleDrivingFlags.FollowTraffic);
 
             pedDutyDriver.Tasks.Clear();
+
+            persist = false;
 
             pedDriver.IsPersistent = false;
             vehicleDriver.IsPersistent = false;

@@ -34,7 +34,10 @@ namespace MechanicBackup.SupportUnits
 
             Game.DisplayNotification("Dispatching pickup unit");
 
-            driver.Tasks.EnterVehicle(mechVehicle, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
+            //driver.Tasks.EnterVehicle(mechVehicle, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
+
+            driver.WarpIntoVehicle(mechVehicle, -1);
+            
             var task1 = driver.Tasks.DriveToPosition(World.GetNextPositionOnStreet(player.Character.Position), 15f, VehicleDrivingFlags.Emergency);
             //var task1 = driver.Tasks.DriveToPosition(player.Character.Position, 15f, VehicleDrivingFlags.Emergency);
             task1.WaitForCompletion(60000);

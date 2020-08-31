@@ -39,9 +39,11 @@ namespace MechanicBackup.SupportUnits
 
             Game.DisplayNotification("Dispatching tow unit");
 
-            driverMech.Tasks.EnterVehicle(mechVehicle, 10000, -1, EnterVehicleFlags.None);
-            driverTow.Tasks.EnterVehicle(towVehicle, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
+            //driverMech.Tasks.EnterVehicle(mechVehicle, 10000, -1, EnterVehicleFlags.None);
+            //driverTow.Tasks.EnterVehicle(towVehicle, 10000, -1, EnterVehicleFlags.None).WaitForCompletion(30000);
 
+            driverTow.WarpIntoVehicle(towVehicle, -1);
+            driverMech.WarpIntoVehicle(mechVehicle, -1);
 
             var task1 = driverTow.Tasks.DriveToPosition(playerVehicle.Position, 15f, VehicleDrivingFlags.Emergency);
             var task2 = driverMech.Tasks.DriveToPosition(playerVehicle.Position, 15f, VehicleDrivingFlags.Emergency);
