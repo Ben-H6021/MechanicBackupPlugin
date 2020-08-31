@@ -43,6 +43,7 @@ namespace MechanicBackup
                     GameFiber.StartNew(delegate
                     {
                         GameFiber.Yield();
+                        sender.Close();
                         SupportUnits.MechanicUnit.spawn(Game.LocalPlayer);
                     });
                 }
@@ -51,6 +52,7 @@ namespace MechanicBackup
                     GameFiber.StartNew(delegate
                     {
                         GameFiber.Yield();
+                        sender.Close();
                         SupportUnits.TowingUnit.spawn(Game.LocalPlayer);
                     });
                 }
@@ -59,6 +61,7 @@ namespace MechanicBackup
                     GameFiber.StartNew(delegate
                     {
                         GameFiber.Yield();
+                        sender.Close();
                         SupportUnits.PickupUnit.spawn(Game.LocalPlayer);
                     });
                 }
@@ -67,6 +70,7 @@ namespace MechanicBackup
                     GameFiber.StartNew(delegate
                     {
                         GameFiber.Yield();
+                        sender.Close();
                         SupportUnits.DutyVehicleUnit.spawn(Game.LocalPlayer);
                     });
                 }

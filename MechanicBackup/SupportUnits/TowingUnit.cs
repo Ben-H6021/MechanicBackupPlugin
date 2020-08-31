@@ -65,9 +65,30 @@ namespace MechanicBackup.SupportUnits
             var task1 = pedDutyDriver.Tasks.DriveToPosition(player.Character.Position, 15f, VehicleDrivingFlags.Emergency);
             var task2 = pedDriver.Tasks.DriveToPosition(player.Character.Position, 15f, VehicleDrivingFlags.Emergency);
 
+            Game.DisplayHelp("Hold Back to warp the vehicles closer");
+
             while ((task1 != null && task1.IsActive) || (task2 != null && task2.IsActive))
             {
                 GameFiber.Yield();
+                if (Game.IsKeyDown(System.Windows.Forms.Keys.Back))
+                {
+                    GameFiber.StartNew(delegate
+                    {
+                        GameFiber.Sleep(2000);
+                        if (Game.IsKeyDownRightNow(System.Windows.Forms.Keys.Back))
+                        {
+                            Game.DisplayHelp("Warping closer");
+                            vehicleDriver.Position = World.GetNextPositionOnStreet(player.Character.Position.Around(50f));
+                            vehicleDuty.Position = World.GetNextPositionOnStreet(player.Character.Position.Around(50f));
+                            GameFiber.Sleep(1000);
+                        }
+                    });
+                }
+                if (vehicleDriver.DistanceTo(player.Character.Position) < 500f || vehicleDriver.DistanceTo(player.Character.Position) < 500f)
+                {
+                    vehicleDriver.IsSirenOn = true;
+                    vehicleDuty.IsSirenOn = true;
+                }
             }
 
             vehicleDuty.IsEngineOn = false;

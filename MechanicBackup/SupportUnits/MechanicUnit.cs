@@ -33,11 +33,31 @@ namespace MechanicBackup.SupportUnits
             driver.WarpIntoVehicle(mechVehicle, -1);
             
             var task1 = driver.Tasks.DriveToPosition(player.Character.Position, 15f, VehicleDrivingFlags.Emergency);
-            task1.WaitForCompletion(60000);
-            if (task1.IsActive)
+            Game.DisplayHelp("Hold Back to warp the vehicles closer");
+
+            while ((task1 != null && task1.IsActive))
             {
-                mechVehicle.SetPositionWithSnap(playerVehicle.GetOffsetPositionFront(-playerVehicle.Length - 1f));
+                GameFiber.Yield();
+                if (Game.IsKeyDown(System.Windows.Forms.Keys.Back))
+                {
+                    GameFiber.StartNew(delegate
+                    {
+                        GameFiber.Sleep(2000);
+                        if (Game.IsKeyDownRightNow(System.Windows.Forms.Keys.Back))
+                        {
+                            Game.DisplayHelp("Warping closer");
+                            mechVehicle.SetPositionWithSnap(playerVehicle.GetOffsetPositionFront(-playerVehicle.Length - 1f));
+                            GameFiber.Sleep(1000);
+                        }
+                    });
+                }
+                if (mechVehicle.DistanceTo(player.Character.Position) < 500f)
+                {
+                    mechVehicle.IsSirenOn = true;
+                    mechVehicle.IsSirenOn = true;
+                }
             }
+            
             driver.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion(10000);
 
             playerVehicle.IsEngineOn = false;
