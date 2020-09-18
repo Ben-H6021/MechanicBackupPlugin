@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("MechanicBackup")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A plugin for RagePluginHook allowing you to spawn multiple different backup units")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("craftycram")]
 [assembly: AssemblyProduct("MechanicBackup")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
