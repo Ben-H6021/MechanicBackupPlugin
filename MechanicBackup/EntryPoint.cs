@@ -1,4 +1,7 @@
 ﻿using Rage;
+using System.Threading;
+using System.Net;
+using System;
 
 [assembly: Rage.Attributes.Plugin("´MechanicBackupPlugin", Description = "Dispatches a mechanic or towing unit to fix your current vehicle.", Author = "craftycram")]
 namespace MechanicBackup
@@ -11,10 +14,51 @@ namespace MechanicBackup
             {
             //Game.DisplayHelp("Hello World!");
 
+            Version currentVersion = new Version("1.0.0");
+            Version newVersion = new Version();
+
             Game.DisplayNotification("MechanicBackupPlugin loaded successfully");
             Game.LogTrivial("MechanicBackupPlugin loaded successfully");
 
-            Player player = Game.LocalPlayer;
+                try
+            {
+                Thread FetchVersionThread = new Thread(() =>
+                {
+
+                    using (WebClient client = new WebClient())
+                    {
+                        try
+                        {
+                            string s = client.DownloadString("http://www.lcpdfr.com/applications/downloadsng/interface/api.php?do=checkForUpdates&fileId=29785&textOnly=1");                              // <= CHANGE FILE ID!!!!
+
+                            newVersion = new Version(s);
+                        }
+                        catch (Exception e) { Game.LogTrivial("MechanicBackupPlugin: LSPDFR Update API down. Aborting checks."); }
+                    }
+                });
+                FetchVersionThread.Start();
+                while (FetchVersionThread.ThreadState != System.Threading.ThreadState.Stopped)
+                {
+                    GameFiber.Yield();
+                }
+
+                // compare the versions  
+                if (currentVersion.CompareTo(newVersion) < 0)
+                {
+                    Game.LogTrivial("MechanicBackupPlugin: Update Available for MechanicBackupPlugin. Installed Version " + currentVersion + "New Version " + newVersion);
+                    Game.DisplayNotification("~g~Update Available~w~ for ~b~MechanicBackupPlugin~w~.\nInstalled Version: ~y~" + currentVersion + "\n~w~New Version~y~ " + newVersion);
+                }
+            }
+            catch (System.Threading.ThreadAbortException e)
+            {
+                Game.LogTrivial("MechanicBackupPlugin: Error while checking for updates.");
+            }
+            catch (Exception e)
+            {
+                Game.LogTrivial("MechanicBackupPlugin: Error while checking for updates.");
+            }
+
+                Player player = Game.LocalPlayer;
             Menu.createMenu();
 
 
