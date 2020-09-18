@@ -14,7 +14,7 @@ namespace MechanicBackup
             {
             //Game.DisplayHelp("Hello World!");
 
-            Version currentVersion = new Version("1.0.1");
+            Version currentVersion = new Version("1.0.2");
             Version newVersion = new Version();
 
             Game.DisplayNotification("MechanicBackupPlugin " + currentVersion + " loaded successfully");
