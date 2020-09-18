@@ -14,7 +14,7 @@ namespace MechanicBackup
             {
             //Game.DisplayHelp("Hello World!");
 
-            Version currentVersion = new Version("1.0.0");
+            Version currentVersion = new Version("1.0.1");
             Version newVersion = new Version();
 
             Game.DisplayNotification("MechanicBackupPlugin " + currentVersion + " loaded successfully");
@@ -29,7 +29,7 @@ namespace MechanicBackup
                     {
                         try
                         {
-                            string s = client.DownloadString("http://www.lcpdfr.com/applications/downloadsng/interface/api.php?do=checkForUpdates&fileId=29785&textOnly=1");                              // <= CHANGE FILE ID!!!!
+                            string s = client.DownloadString("http://www.lcpdfr.com/applications/downloadsng/interface/api.php?do=checkForUpdates&fileId=29789&textOnly=1");                              // <= CHANGE FILE ID!!!!
 
                             newVersion = new Version(s);
                         }
