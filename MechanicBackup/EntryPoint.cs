@@ -17,8 +17,8 @@ namespace MechanicBackup
             Version currentVersion = new Version("1.0.0");
             Version newVersion = new Version();
 
-            Game.DisplayNotification("MechanicBackupPlugin" + currentVersion + " loaded successfully");
-            Game.LogTrivial("MechanicBackupPlugin" + currentVersion + " loaded successfully");
+            Game.DisplayNotification("MechanicBackupPlugin " + currentVersion + " loaded successfully");
+            Game.LogTrivial("MechanicBackupPlugin " + currentVersion + " loaded successfully");
 
                 try
             {
