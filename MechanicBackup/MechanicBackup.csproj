@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Menu.cs" />
