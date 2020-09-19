@@ -3,7 +3,7 @@ using System.Threading;
 using System.Net;
 using System;
 
-[assembly: Rage.Attributes.Plugin("´MechanicBackupPlugin", Description = "Dispatches a mechanic or towing unit to fix your current vehicle.", Author = "craftycram")]
+[assembly: Rage.Attributes.Plugin("MechanicBackupPlugin", Description = "Dispatches a mechanic or towing unit to fix your current vehicle.", Author = "craftycram")]
 namespace MechanicBackup
 {
     public static class EntryPoint
@@ -12,9 +12,8 @@ namespace MechanicBackup
         {
             GameFiber.StartNew(delegate
             {
-            //Game.DisplayHelp("Hello World!");
 
-            Version currentVersion = new Version("1.0.2");
+            Version currentVersion = new Version("1.1.0");
             Version newVersion = new Version();
 
             Game.DisplayNotification("MechanicBackupPlugin " + currentVersion + " loaded successfully");
