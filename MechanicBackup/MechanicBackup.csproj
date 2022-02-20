@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MechanicBackup</RootNamespace>
     <AssemblyName>MechanicBackup</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -33,10 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RAGENativeUI">
-      <HintPath>..\..\!libs\RAGENativeUI.dll</HintPath>
+      <HintPath>..\..\Immersive-Plugins-Team\Dependencies\RAGENativeUI.dll</HintPath>
     </Reference>
     <Reference Include="RagePluginHookSDK">
-      <HintPath>..\..\!libs\RagePluginHookSDK.dll</HintPath>
+      <HintPath>..\..\Immersive-Plugins-Team\Dependencies\RagePluginHookSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,11 +55,9 @@
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SupportUnits\DutyVehicleUnit.cs" />
+    <Compile Include="RandomCharacter.cs" />
     <Compile Include="SupportUnits\MechanicUnit.cs" />
-    <Compile Include="SupportUnits\PickupUnit.cs" />
     <Compile Include="Stations.cs" />
-    <Compile Include="SupportUnits\TowingUnit.cs" />
     <Compile Include="Workshop.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
