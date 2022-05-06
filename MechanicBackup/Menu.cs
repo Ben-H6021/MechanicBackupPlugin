@@ -2,6 +2,7 @@
 using Rage;
 using RAGENativeUI;
 using RAGENativeUI.Elements;
+using System;
 
 namespace MechanicBackup
 {
@@ -11,6 +12,7 @@ namespace MechanicBackup
         public static MenuPool _menuPool;
 
         private static UIMenuItem spawnMechanicUnit;
+        private static readonly Random rand = new Random();
 
         public static void createMenu()
         {
@@ -38,7 +40,11 @@ namespace MechanicBackup
                     {
                         GameFiber.Yield();
                         sender.Close();
-                        SupportUnits.MechanicUnit.spawn(Game.LocalPlayer);
+                        if (rand.Next(1, 3) == 1)
+                        {
+                            SupportUnits.MechanicUnit.spawn(Game.LocalPlayer);
+                        }
+                        else SupportUnits.MechanicUnit.spawn2(Game.LocalPlayer);
                     });
                 }
             }
